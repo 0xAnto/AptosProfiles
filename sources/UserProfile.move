@@ -1,4 +1,4 @@
-module AptosProfile::UserProfile {
+module AptosProfile::User {
 
     use std::string::{String, utf8};
     
@@ -6,7 +6,7 @@ module AptosProfile::UserProfile {
     
     struct UserProfile has key { data: String}
     
-    public entry fun set_name(account: &signer, raw_data : vector<u8>) acquires UserProfile{
+    public entry fun set_data(account: &signer, raw_data : vector<u8>) acquires UserProfile{
         let data = utf8(raw_data);
         let user_addr = signer::address_of(account);
 
@@ -18,4 +18,8 @@ module AptosProfile::UserProfile {
             existing_user_profile.data=data
         }
     }
+    public fun get_data(addr: address): String acquires UserProfile {
+        borrow_global<UserProfile>(addr).data
+    }
+
 }
