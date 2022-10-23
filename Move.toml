@@ -6,4 +6,4 @@ git = 'https://github.com/aptos-labs/aptos-core.git'
 rev = 'main'
 subdir = 'aptos-move/framework/aptos-framework'
 [addresses]
-AptosProfile= "0x1999"
+AptosProfile= "9f73f71584332614ea07a1d04b18b838cae48724d890404259d289ea0ccf1937"
