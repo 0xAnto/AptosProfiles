@@ -22,4 +22,12 @@ module AptosProfile::User {
         borrow_global<UserProfile>(addr).data
     }
 
+
+#[test(account=@0x42)]
+    public entry fun test_set (account:signer) acquires UserProfile{
+        let raw_data= b"anto56665";
+        set_data(&account, raw_data);
+          let addr = signer::address_of(&account);
+        assert!(get_data(addr)==utf8(raw_data),1)
+    } 
 }
