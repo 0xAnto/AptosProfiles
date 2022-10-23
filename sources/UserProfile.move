@@ -1,12 +1,12 @@
 module AptosProfile::User {
-
+    // libraries
     use std::string::{String, utf8};
-    
     use std::signer;
-    
+    // UserProfile resource
     struct UserProfile has key { data: String}
     
-    public entry fun set_data(account: &signer, raw_data : vector<u8>) acquires UserProfile{
+    //Entr function to set data
+    public entry fun set_data(account: &signer, raw_data : vector<u8>) acquires UserProfile {
         let data = utf8(raw_data);
         let user_addr = signer::address_of(account);
 
@@ -18,16 +18,18 @@ module AptosProfile::User {
             existing_user_profile.data=data
         }
     }
+
+    // To get data
     public fun get_data(addr: address): String acquires UserProfile {
         borrow_global<UserProfile>(addr).data
     }
 
-
-#[test(account=@0x42)]
-    public entry fun test_set (account:signer) acquires UserProfile{
-        let raw_data= b"anto56665";
-        set_data(&account, raw_data);
-          let addr = signer::address_of(&account);
-        assert!(get_data(addr)==utf8(raw_data),1)
+    // Tests
+    #[test(account=@0x42)]
+        public entry fun test_set (account:signer) acquires UserProfile {
+            let raw_data= b"anto56665";
+            set_data(&account, raw_data);
+            let addr = signer::address_of(&account);
+            assert!(get_data(addr)==utf8(raw_data),1)
     } 
 }
